@@ -28,14 +28,19 @@ def get_ids(filenames):
     
     return group_ids
 
-def post_request(filenames):
+def post_request(filenames, group_ids):
     for i in range(len(filenames)):
         with open(json_path + filenames[i]) as f:
             file_data = json.load(f)
-            x = requests.post(url, data=json.dumps(file_data), headers=headers)
-            print(x.status_code)
+            url_with_id = url + '/' + group_ids[i]
+            x = requests.post(url_with_id, data=json.dumps(file_data), headers=headers)
+
+            if x.status_code == 200:
+                print("POST complete with status code 200")
+            else:
+                print("POST failed with status code " + x.status_code)
 
 if __name__ == "__main__":
     filenames = get_filenames()
     group_ids = get_ids(filenames)
-    post_request(filenames)
+    post_request(filenames, group_ids)
