@@ -5,7 +5,7 @@ from os import listdir
 from os.path import isfile, join
 
 url = os.environ['POST_URL']
-json_path = os.environ['JSON_FILEPATH']
+json_path = '/app/json-dir'
 headers = {
     'Content-type': os.environ['CONTENT_TYPE_HEADER'],
     'Accept': os.environ['ACCEPT_HEADER'],
