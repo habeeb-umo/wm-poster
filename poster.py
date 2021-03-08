@@ -3,14 +3,17 @@ import json
 import os
 from os import listdir
 from os.path import isfile, join
+from requests.auth import HTTPBasicAuth
 
 url = os.environ['POST_URL']
-json_path = '/app/json-dir'
+json_path = '/app/json-dir/'
 headers = {
     'Content-type': os.environ['CONTENT_TYPE_HEADER'],
     'Accept': os.environ['ACCEPT_HEADER'],
     'aw-tenant-code': os.environ['TENANT_CODE_HEADER']
 }
+auth_user = os.environ['AUTH_USER']
+auth_pass = os.environ['AUTH_PASSWORD']
 
 def get_filenames():
     filenames = [
@@ -33,7 +36,7 @@ def post_request(filenames, group_ids):
         with open(json_path + filenames[i]) as f:
             file_data = json.load(f)
             url_with_id = url + '/' + group_ids[i]
-            x = requests.post(url_with_id, data=json.dumps(file_data), headers=headers)
+            x = requests.post(url_with_id, data=json.dumps(file_data), headers=headers, auth=HTTPBasicAuth(auth_user, auth_pass))
 
             if x.status_code == 200:
                 print("POST complete with status code 200")
