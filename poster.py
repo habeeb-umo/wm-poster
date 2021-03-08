@@ -41,7 +41,7 @@ def post_request(filenames, group_ids):
             if x.status_code == 200:
                 print("POST complete with status code 200")
             else:
-                print("POST failed with status code " + x.status_code)
+                print("POST failed with status code " + str(x.status_code) )
 
 if __name__ == "__main__":
     filenames = get_filenames()
