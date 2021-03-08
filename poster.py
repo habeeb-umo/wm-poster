@@ -35,13 +35,14 @@ def post_request(filenames, group_ids):
     for i in range(len(filenames)):
         with open(json_path + filenames[i]) as f:
             file_data = json.load(f)
-            url_with_id = url + '/' + group_ids[i]
-            x = requests.post(url_with_id, data=json.dumps(file_data), headers=headers, auth=HTTPBasicAuth(auth_user, auth_pass))
+            for json_obj in file_data:
+                url_with_id = url + '/' + group_ids[i]
+                x = requests.post(url_with_id, data=json.dumps(json_obj), headers=headers, auth=HTTPBasicAuth(auth_user, auth_pass))
 
-            if x.status_code == 200:
-                print("POST complete with status code 200")
-            else:
-                print("POST failed with status code " + str(x.status_code) )
+                if x.status_code == 200:
+                    print("POST complete with status code 200")
+                else:
+                    print("POST failed with status code " + str(x.status_code) )
 
 if __name__ == "__main__":
     filenames = get_filenames()
