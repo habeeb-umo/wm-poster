@@ -39,7 +39,7 @@ def post_request(filenames, group_ids):
                 url_with_id = url + '/' + group_ids[i]
                 x = requests.post(url_with_id, data=json.dumps(json_obj), headers=headers, auth=HTTPBasicAuth(auth_user, auth_pass))
 
-                if x.ok
+                if x.ok:
                     print("POST complete with status code " + str(x.status_code) + " for object: " + json_obj.get("Name"))
                 else:
                     print("POST failed with status code " + str(x.status_code) + " for object: " + json_obj.get("Name"))
